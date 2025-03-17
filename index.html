@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-    // SQLite database connection
-    $db = new SQLite3('includes/sqlite.db');
-    
-    $query = "SELECT * FROM werner ORDER BY id ASC";
-    $result = $db->query($query);
-?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,19 +22,6 @@
             </button>
         </div>
         <div class="slides" data-carousel-slides-container>
-            <?php
-                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                    echo '<div class="slide" data-slide="' . $row['id'] . '">';
-                    echo '<div class="content">';
-                    echo '<div class="gradient-background">';
-                    echo '<h1>' . $row['title'] . '</h1>';
-                    echo '<p>' . $row['description'] . '</p>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-                $db->close(); // Close the database connection
-            ?>
     </div>
     <script src="scripts/script.js"></script>
 </body>
