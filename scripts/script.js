@@ -3,18 +3,25 @@ const buttonPrevious = document.querySelector('[data-carousel-button-previous]')
 const carousel = document.querySelector('[data-carousel]');
 const slidesContainer = document.querySelector('[data-carousel-slides-container]');
 let currentSlide = 0;  // Start with the first slide
-const numSlides = slidesContainer.children.length;
 let slidesData = [];
 
 fetch('projects.json')
     .then(response => response.json())
     .then(data => {
         slidesData = data;
-        // Initial load
-        for (let i = 0; i < numSlides; i++) {
-            loadSlideContent(i, slidesContainer.children[i]);
-        }
-        // Set initial slide to the first one
+
+        // Dynamically create slides based on the number of items in the JSON
+        slidesContainer.innerHTML = ''; // Clear existing slides
+        slidesData.forEach((_, index) => {
+            const slide = document.createElement('div');
+            slide.classList.add('slide');
+            slide.innerHTML = '<div class="content"></div>';
+            slidesContainer.appendChild(slide);
+            loadSlideContent(index, slide);
+        });
+
+        // Update the number of slides and set the initial slide
+        currentSlide = 0;
         carousel.style.setProperty('--current-slide', currentSlide);
     });
 
@@ -29,21 +36,21 @@ function loadSlideContent(slideIndex, slideElement) {
 }
 
 function applyRandomRotation(imageElement) {
-    const rotationDegrees = Math.random() * (5 - (-5)) + (-5); // Random number between -5 and 5
+    const rotationDegrees = Math.random() * (1 - (-1)) + (-1); // Random number between -5 and 5
     imageElement.style.transform = `rotate(${rotationDegrees}deg)`;
 }
 
 function handleNext() {
-    currentSlide = modulo(currentSlide + 1, numSlides);
+    currentSlide = modulo(currentSlide + 1, slidesData.length);
     carousel.style.setProperty('--current-slide', currentSlide);
-    const nextSlideIndex = modulo(currentSlide + 1, numSlides);
+    const nextSlideIndex = modulo(currentSlide + 1, slidesData.length);
     loadSlideContent(nextSlideIndex, slidesContainer.children[nextSlideIndex]);
 }
 
 function handlePrevious() {
-    currentSlide = modulo(currentSlide - 1, numSlides);
+    currentSlide = modulo(currentSlide - 1, slidesData.length);
     carousel.style.setProperty('--current-slide', currentSlide);
-    const prevSlideIndex = modulo(currentSlide - 1, numSlides);
+    const prevSlideIndex = modulo(currentSlide - 1, slidesData.length);
     loadSlideContent(prevSlideIndex, slidesContainer.children[prevSlideIndex]);
 }
 
