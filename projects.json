@@ -1,17 +1,22 @@
 [
     {
-        "image_path": "sarge.jpeg",
-        "title": "Project 1",
-        "description": "Description for project 1"
+        "image_path": "posters_projec.png",
+        "title": "Posters for Social Change",
+        "description": "I created a series of three posters for social change. I focused on the issue of corporate corruption in our society. By combining well known corporate logos with bitmapped images of impactful scenes I was able to create an effective series of work that provokes deeper thinking."
     },
     {
-        "image_path": "image2.jpg",
-        "title": "Project 2",
-        "description": "Description for project 2"
+        "image_path": "menu.jpg",
+        "title": "Meiji Menu",
+        "description": "I created a new menu for a local Fayetteville restaurant. I strived to create a clean and elegant look, matching the unique aesthetic of the restaurant. I used a combination of typography and color to create a menu that is easy to read and visually appealing. The menu features a variety of dishes, each with its own unique description and price."
     },
     {
-        "image_path": "image3.jpg",
-        "title": "Project 3",
-        "description": "Description for project 3"
+        "image_path": "process.jpg",
+        "title": "Process Book",
+        "description": "Over the course of the Fall 2024 semester, I produced a process book. Based off of the prompt, \"Do, Make Think\", I created a three part book based off of my motivations, inspirations, and culminations throughout my college experience so far. I included material from each of the classes I was participating in that semester to create a holistic view of my work and process."
+    },
+    {
+        "image_path": "enneagram.png",
+        "title": "Enneagram Brand Identity",
+        "description": "Using my results from the \"Enneagram\" personality test I created this brand. I aimed to communicate the traits my test results showed through visual cues and a unique brand application. Additionally I wanted to create a logo that used imagery related to my personality's traits, so I created this logo which combines a shield with the name of my personality type. The project culminated in me mocking up an imaginary adventure card game to reflect my research and traits."
     }
 ]
