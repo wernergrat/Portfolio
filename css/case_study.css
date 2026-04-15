@@ -103,7 +103,7 @@ figure {
     max-width: 90%;
     color: #FFF;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(16px, 3vw, 25px);
+    font-size: 1.1rem;
     font-weight: 300;
     line-height: normal;
     margin-right: 20%;
