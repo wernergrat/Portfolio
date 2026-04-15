@@ -32,6 +32,7 @@ function bindDrag(image) {
         image.style.left = `${origX}px`;
         image.style.top = `${origY}px`;
         image.setPointerCapture(event.pointerId);
+        image.classList.add('dragging');
     });
 
     image.addEventListener('pointermove', (event) => {
@@ -43,10 +44,16 @@ function bindDrag(image) {
     });
 
     image.addEventListener('pointerup', () => {
+        if (dragState && dragState.target === image) {
+            dragState.target.classList.remove('dragging');
+        }
         dragState = null;
     });
 
     image.addEventListener('pointercancel', () => {
+        if (dragState && dragState.target === image) {
+            dragState.target.classList.remove('dragging');
+        }
         dragState = null;
     });
 }
@@ -76,7 +83,7 @@ fetch(imageSlotsUrl)
             image.style.zIndex = slot.zIndex || `${10 + index}`;
             image.style.objectFit = 'contain';
             const rotation = slot.rotation !== undefined ? slot.rotation : randRotation(-25, 25);
-            image.style.transform = `rotate(${rotation}deg)`;
+            image.style.setProperty('--rotation', `${rotation}deg`);
             bindDrag(image);
         });
     })
