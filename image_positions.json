@@ -1,36 +1,46 @@
 [
   {
-    "top": "1vw",
-    "left": "50vw",
-    "width": "clamp(60px, 14.4vw, 20%)",
+    "top": "2vw",
+    "left": "60vw",
+    "height": "24vh",
+    "maxWidth": "18vw",
+    "maxHeight": "28vh",
     "rotation": -18,
     "zIndex": 10
   },
   {
-    "top": "13vw",
-    "left": "70vw",
-    "width": "clamp(60px, 18vw, 30%)",
+    "top": "20vw",
+    "left": "75vw",
+    "height": "28vh",
+    "maxWidth": "22vw",
+    "maxHeight": "32vh",
     "rotation": 12,
     "zIndex": 9
   },
   {
-    "top": "24vw",
+    "top": "19vw",
     "left": "30vw",
-    "width": "clamp(54px, 14.4vw, 25%)",
+    "height": "22vh",
+    "maxWidth": "20vw",
+    "maxHeight": "26vh",
     "rotation": -20,
     "zIndex": 8
   },
   {
-    "top": "26vw",
+    "top": "22vw",
     "left": "50vw",
-    "width": "clamp(80px, 12vw, 120px)",
+    "height": "20vh",
+    "maxWidth": "110px",
+    "maxHeight": "22vh",
     "rotation": -12,
     "zIndex": 7
   },
   {
-    "top": "26vw",
+    "top": "22vw",
     "left": "10vw",
-    "width": "clamp(75px, 12vw, 120px)",
+    "height": "18vh",
+    "maxWidth": "90px",
+    "maxHeight": "20vh",
     "rotation": 20,
     "zIndex": 6
   }

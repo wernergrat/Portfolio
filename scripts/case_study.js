@@ -2,6 +2,7 @@ const imageSlotsUrl = 'image_positions.json';
 const collageImages = Array.from(document.querySelectorAll('.collage-image'));
 let dragState = null;
 let dragEventsBound = false;
+let collageSlots = [];
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -12,6 +13,70 @@ function shuffle(array) {
 
 function randRotation(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getViewportScale() {
+    const widthScale = window.innerWidth / 1440;
+    const heightScale = window.innerHeight / 900;
+    const baseScale = Math.min(widthScale, heightScale, 1);
+
+    if (window.innerWidth <= 768) {
+        return Math.max(0.24, baseScale * 1.35);
+    }
+
+    return Math.max(0.18, Math.pow(baseScale, 1.55) * 1.2);
+}
+
+function parseViewportValue(value, scale) {
+    if (typeof value !== 'string') return null;
+
+    const trimmed = value.trim();
+    const match = trimmed.match(/^([0-9.]+)(vh|vw|px|%)$/);
+    if (!match) return null;
+
+    const amount = Number.parseFloat(match[1]);
+    const unit = match[2];
+
+    if (unit === 'px') {
+        return amount * scale;
+    }
+
+    if (unit === 'vh') {
+        return (window.innerHeight * amount / 100) * scale;
+    }
+
+    if (unit === 'vw') {
+        return (window.innerWidth * amount / 100) * scale;
+    }
+
+    if (unit === '%') {
+        return (window.innerWidth * amount / 100) * scale;
+    }
+
+    return null;
+}
+
+function applyCollageSizing() {
+    if (!collageSlots.length) return;
+
+    const scale = getViewportScale();
+
+    collageImages.forEach((image, index) => {
+        const slot = collageSlots[index];
+        if (!slot) return;
+
+        image.style.top = slot.top;
+        image.style.left = slot.left;
+        const heightValue = parseViewportValue(slot.height || '18vh', scale);
+        const maxHeightValue = parseViewportValue(slot.maxHeight, scale);
+        const maxWidthValue = parseViewportValue(slot.maxWidth, scale);
+        const heightPx = heightValue ?? (window.innerHeight * 0.18 * scale);
+
+        image.style.height = `${Math.round(heightPx)}px`;
+        image.style.width = 'auto';
+        image.style.maxHeight = maxHeightValue ? `${Math.round(maxHeightValue)}px` : 'none';
+        image.style.maxWidth = maxWidthValue ? `${Math.round(maxWidthValue)}px` : 'none';
+    });
 }
 
 function bindDrag(image) {
@@ -68,26 +133,24 @@ fetch(imageSlotsUrl)
     .then((slots) => {
         if (!Array.isArray(slots) || slots.length === 0) return;
 
-        const availableSlots = slots.slice(0, collageImages.length);
-        shuffle(availableSlots);
+        collageSlots = slots.slice(0, collageImages.length);
+        shuffle(collageSlots);
 
         collageImages.forEach((image, index) => {
-            const slot = availableSlots[index];
-            image.style.top = slot.top;
-            image.style.left = slot.left;
-            image.style.width = slot.width || 'clamp(120px, 18vw, 280px)';
-            image.style.height = 'auto';
-            if (slot.maxHeight) {
-                image.style.maxHeight = slot.maxHeight;
-            }
+            const slot = collageSlots[index];
+            if (!slot) return;
             image.style.zIndex = slot.zIndex || `${10 + index}`;
             image.style.objectFit = 'contain';
             const rotation = slot.rotation !== undefined ? slot.rotation : randRotation(-25, 25);
             image.style.setProperty('--rotation', `${rotation}deg`);
             bindDrag(image);
         });
+
+        applyCollageSizing();
     })
     .catch((error) => {
         console.error(error);
     });
+
+window.addEventListener('resize', applyCollageSizing);
     
