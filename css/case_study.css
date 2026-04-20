@@ -329,3 +329,49 @@ figure {
     padding: 0.5rem 0;
 }
 
+.pdf-embed {
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    transform: none;
+    height: clamp(760px, 90vh, 1200px);
+    border: 0;
+    overflow: hidden;
+    background: #1E1E1E;
+}
+
+.pdf-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.pdf-mobile-link {
+    display: none;
+    margin: 0.75rem 0 0;
+    color: #F7F7F3;
+    font-size: 1rem;
+}
+
+.pdf-mobile-link a {
+    color: #F29E4C;
+}
+
+@media (max-width: 1024px) {
+    .pdf-embed {
+        display: none;
+    }
+
+    .pdf-mobile-link {
+        display: block;
+    }
+
+    .pdf-mobile-link a {
+        display: inline-block;
+        margin-top: 0.25rem;
+        font-weight: 600;
+    }
+}
+
